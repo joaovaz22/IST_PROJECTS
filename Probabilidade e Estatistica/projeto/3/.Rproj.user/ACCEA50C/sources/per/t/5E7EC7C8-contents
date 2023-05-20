@@ -1,0 +1,36 @@
+#Ex 5
+set.seed(658)
+Sample <- rexp(566, 0.14)
+SampleProb <- length(Sample[Sample>27]) / length(Sample)
+TheoreticalProb <- pexp(27, 0.19, lower.tail = FALSE)
+Diff <- abs(SampleProb - TheoreticalProb)
+print(Diff)
+
+#Ex 7
+set.seed(374)
+Means <- replicate(6040, mean(rbinom(144, size = 4, prob = 0.99)))
+ExpectedValue <- 4 * 0.99
+Diff <- abs(ExpectedValue - mean(Means))
+print(Diff)
+
+#Ex 8
+set.seed(834)
+n <- 1388
+lambda <- 5.12
+Samples <- replicate(900, rexp(n, lambda))
+lambdas_mle <- 1/colMeans(Samples)
+lower_bounds <- lambdas_mle * (1 - ( qnorm(1-(0.06/2), mean=0, sd=1)) / sqrt(n))
+upper_bounds <- lambdas_mle * (1 + ( qnorm(1-(0.06/2), mean=0, sd=1)) / sqrt(n))
+amplitudes <- abs(upper_bounds - lower_bounds)
+print(mean(amplitudes))
+
+#Ex 9
+set.seed(171)
+n <- 1307 
+lambda <- 1.92
+Samples <- replicate(950, rexp(n, lambda))
+lambdas_mle <- 1/colMeans(Samples)
+lower_bounds <- lambdas_mle * (1 - ( qnorm(1-(0.04/2), mean=0, sd=1)) / sqrt(n))
+upper_bounds <- lambdas_mle * (1 + ( qnorm(1-(0.04/2), mean=0, sd=1)) / sqrt(n))
+amplitudes <- abs(upper_bounds - lower_bounds)
+print(mean(amplitudes))

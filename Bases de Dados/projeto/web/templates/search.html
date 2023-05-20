@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Procurar</title>
+</head>
+
+<body style="padding:20px">
+    {% for c in campo%}
+    <p>{{ c[0] }}: {{ c[1] }}</p>
+    {% endfor %}
+    <p><a href="{{ link }}">Procurar</a></p>
+</body>
+
+</html>

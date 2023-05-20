@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Categorias</title>
+</head>
+
+<body style="padding:20px">
+    <p><a href="{{ url_for('main_menu') }}">Back</a></p>
+    <br>
+    <h3>Procurar Categoria</h3>
+    <form action="search_categoria" method="post">
+        <p><input type="text" name="nome" placeholder="Nome" /></p>
+        <p><input type="submit" value="Procurar" /></p>
+    </form>
+    <br>
+    <p><a href="add_cat">Adicionar Categoria</a></p>
+    {% if cursor %}
+    <table border="2px">
+        <thead>
+            <tr>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in cursor %}
+            <tr>
+                <td>{{ record[0] }}</td>
+                <td><a href="updt_cat_remove?nome={{ record[0] }}">Remover Categoria</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p> Erro: ao obter dados da base de dados!</p>
+    {% endif %}
+</body>
+
+</html>

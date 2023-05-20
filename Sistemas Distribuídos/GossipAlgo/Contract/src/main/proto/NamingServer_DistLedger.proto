@@ -1,0 +1,38 @@
+syntax = "proto3";
+package pt.ulisboa.tecnico.distledger.contract.namingserver;
+
+import "DistLedgerCommonDefinitions.proto";
+
+// Cross-server interface of the DistLedger Service (only for phases 2 & 3 of the project)
+
+message RegisterRequest {
+  string service = 1;
+  string qualifier = 2;
+  string address = 3;
+}
+
+message RegisterResponse {
+  int32 id = 1;
+}
+
+message DeleteRequest {
+  string service = 1;
+  string address = 2;
+}
+
+message DeleteResponse {
+}
+
+message LookupRequest {
+  string service = 1;
+  string qualifier = 2;
+}
+message LookupResponse {
+  repeated ServerEntry entries = 1;
+}
+
+service NamingServerService {
+  rpc register(RegisterRequest) returns (RegisterResponse);
+  rpc delete(DeleteRequest) returns (DeleteResponse);
+  rpc lookup(LookupRequest) returns (LookupResponse);
+}

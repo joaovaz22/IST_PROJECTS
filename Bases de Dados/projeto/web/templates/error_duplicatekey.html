@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Error</title>
+</head>
+
+<body style="padding:20px">
+    <p>Erro em {{ spot }}!</p>
+    <p><u>{{ campo }}</u> inválido!</p>
+    <p>{{ campo }} = '{{ literal }}'</p>
+    {% if spot == 'Categoria' %}
+    <p><a href="{{ url_for('list_categoria') }}">Back</a></p>
+    {% elif spot == 'Retalhista' %}
+    <p><a href="{{ url_for('list_retalhistas') }}">Back</a></p>
+    {% elif spot == 'Ivm' %}
+    <p><a href="{{ url_for('list_ivms') }}">Back</a></p>
+    {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+library(readxl)
+library(tidyverse)
+columnNames <- read_excel("C:/Users/joao_/OneDrive/Documentos/PE/projeto/2/EsperancaVida.xlsx",
+                          range = "B9:AI9",
+                          col_names = FALSE)
+Anos <- read_excel("C:/Users/joao_/OneDrive/Documentos/PE/projeto/2/EsperancaVida.xlsx",
+                   range = "A52:A69",
+                   col_names = FALSE,
+)
+EsperancaVidaHomem = read_excel("C:/Users/joao_/OneDrive/Documentos/PE/projeto/2/EsperancaVida.xlsx",
+                                range = "AJ52:BQ69",
+                                col_names = FALSE)
+
+colnames(EsperancaVidaHomem) <- columnNames
+EsperancaVidaHomem <- cbind(EsperancaVidaHomem, Anos)
+colnames(EsperancaVidaHomem) <- paste(colnames(EsperancaVidaHomem),"H", sep = "_")
+colnames(EsperancaVidaHomem)[ncol(EsperancaVidaHomem)] <- "Ano"
+
+
+
+
+EsperancaVidaMulher = read_excel("C:/Users/joao_/OneDrive/Documentos/PE/projeto/2/EsperancaVida.xlsx",
+                                 range = "BR52:CY69",
+                                 col_names = FALSE)
+
+colnames(EsperancaVidaMulher) <- columnNames
+colnames(EsperancaVidaMulher) <- paste(colnames(EsperancaVidaMulher), "M", sep = "_")
+
+
+keeps <- c( "Ano", "SI - Eslovénia_H", "EE - Estónia_H", "HU - Hungria_H")
+EsperancaVidaHomem = EsperancaVidaHomem[keeps]
+keeps <- c( "SI - Eslovénia_M", "EE - Estónia_M", "HU - Hungria_M")
+EsperancaVidaMulher = EsperancaVidaMulher[keeps]
+
+
+
+res = cbind(EsperancaVidaHomem, EsperancaVidaMulher)
+
+
+
+resPlot = pivot_longer(res, !Ano, 
+            names_to = c("Pais", "Sexo"),
+            names_sep = "_",
+            values_to = "count")
+
+resPlot = ggplot(resPlot, aes(y = count, x = Ano, colour = Pais, shape = Sexo, 
+                              group = interaction(Pais, Sexo)))+
+  geom_line()+
+  geom_point()+
+  labs(title = "Esperança de Vida a nascença",
+       x = "Ano(idade)-Média",
+       y = "Anos")
+resPlot
+
+ggsave("Ex2.png")
+
+
+
+
